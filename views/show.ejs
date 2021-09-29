@@ -4,17 +4,42 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/skeleton.css">
+        <style>
+            h1{
+                text-align: center;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                color: darkseagreen;
+                font-size: 50px;
+                margin-top: 20px;
+            }
+            *{
+                background-color: thistle;
+            }
+        </style>
 		<title>Mongoose Store</title>
 	</head>
 	<body>
 		<nav>
 			<a href="/store">Back to Main Store</a>
+            <a href="/store/edit">Edit Product</a>
 		</nav>
 		<h1><%=store.name %></h1>
         Description: <%= store.description%>
-		Image: <%= store.img%>
+		<img src="<%= store.img%>" alt="store.name">
 		<br />
 		Price: <%= store.price %>
-        Quantity: <%= store.qty%>
+        Quantity Remaining: <%= store.qty%>
+        <% let qty =  store.qty %>
+        <% if(qty === 0) { %>
+            <p>OUT OF STOCK</p>
+        <% } else { %>
+            <p>IN STOCK</p>
+        <% } %>
+        <input type="submit" value="Buy">
+        <form action="/store/?_method=DELETE" method="POST">
+        <input type="submit" value="Delete Product">
+    </form>
 	</body>
 </html>

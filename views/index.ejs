@@ -4,19 +4,45 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/skeleton.css">
+        <style type="text/css">
+            h1{
+                text-align: center;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                color: darkseagreen;
+                font-size: 50px;
+                margin-top: 20px;
+            }
+            li {
+                list-style-type: none;
+                text-align: center;
+                font-family: Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                font-size: 16px;
+            }
+            #list{
+                text-decoration: none;
+                color: lightskyblue;
+            }
+            #add{
+                margin-left: 41%;
+                color: lightcoral;
+            }
+            *{
+                background-color: seashell;
+            }
+        </style>
 		<title>Mongoose Store</title>
 	</head>
 	<body>
 		<h1>Shop</h1>
         <ul>
 			<% store.forEach(store => { %>
-			<li><a href="/store/<%=store._id; %>"><%=store.title; %></a></li>
-            <!-- ^have to add an underscore bc thats how mongoDB convention works -->
+			<li><a id="list" href="/store/<%=store._id; %>"><%=store.name; %></a></li>
 			<% }) %>
 		</ul>
-        <!-- squid displays the results and the flounder runs the javascript inside the html -->
         <nav>
-            <a href="/store/new">Add a New Product</a>
+            <a id="add" href="/store/new">Add a New Product</a>
         </nav>
 	</body>
 </html>

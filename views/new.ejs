@@ -4,16 +4,35 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/skeleton.css">
 		<title>Mongoose Store</title>
+        <style type="text/css">
+            h1{
+                text-align: center;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                color: darkseagreen;
+                font-size: 50px;
+                margin-top: 20px;
+            }
+            input[type="submit"]{
+                margin-left: 41%;
+                color: lightcoral;
+                background-color: snow;
+            }
+            *{
+                background-color:powderblue;
+            }
+        </style>
 	</head>
 	<body>
 		<h1>New Products</h1>
 		<form action="/store" method="POST">
 			Name: <input type="text" name="name" /><br />
-            Description: <input type="text" name="description">
+            Description: <input type="text" name="description"> <br>
 			Image: <input type="image url" name="img" /><br />
 			Price: <input type="number" name="price" /><br />
-            Quantity: <input type="number" name="qty">
+            Quantity: <input type="number" name="qty"> <br>
 			<input type="submit" name="" value="Add Product" />
 		</form>
 	</body>

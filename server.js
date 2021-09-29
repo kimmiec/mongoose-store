@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Store = require('./models/products.js');
+const methodOverride = require('method-override');
 
 // ========== MIDDLEWARE ==========
 app.use(express.urlencoded({extended: true}));
@@ -54,8 +55,6 @@ app.get('/store/:id', (req, res) =>{
         });
     });
 });
-
-
 
 
 // ========== LISTENER ==========
