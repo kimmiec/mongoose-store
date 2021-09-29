@@ -14,8 +14,16 @@
                 font-size: 50px;
                 margin-top: 20px;
             }
+            #pic{
+                max-width: 50%;
+                max-height: 50%;
+            }
             *{
                 background-color: thistle;
+                text-align: center;
+            }
+            input[type="submit"]{
+                background-color: snow;
             }
         </style>
 		<title>Mongoose Store</title>
@@ -26,10 +34,11 @@
             <a href="/store/edit">Edit Product</a>
 		</nav>
 		<h1><%=store.name %></h1>
+		<img id="pic" src="<%= store.img%>" alt="store.name"><br>
         Description: <%= store.description%>
-		<img src="<%= store.img%>" alt="store.name">
 		<br />
 		Price: <%= store.price %>
+        <br>
         Quantity Remaining: <%= store.qty%>
         <% let qty =  store.qty %>
         <% if(qty === 0) { %>
@@ -37,7 +46,19 @@
         <% } else { %>
             <p>IN STOCK</p>
         <% } %>
-        <input type="submit" value="Buy">
+
+        <!-- BUY -->
+        <form action="/store/<%= store._id; %>?_method=PUT" method="POST">
+        <input id="buy" type="submit" name="qty" value="Buy">
+        
+        <% /* %> 
+        <% let qty = store.qty %>
+        <% let buy = document.getElementById("buy")%>
+        <% %> 
+        <% */ %>
+        
+        </form>
+        <!-- DELETE -->
         <form action="/store/?_method=DELETE" method="POST">
         <input type="submit" value="Delete Product">
     </form>
