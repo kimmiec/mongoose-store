@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Store = require('./models/products.js');
+// const Store = require('./models/products.js');
 const methodOverride = require('method-override');
 
 // ========== MIDDLEWARE ==========
@@ -22,65 +22,9 @@ db.on('error', (err) => console.log(err.message + ' is mongo not running?'));
 db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
-// ========== ROUTES ==========
-// Index 
-app.get('/store', (req, res) =>{
-    // let qty =  - parseInt(store.qty)
-    Store.find({}, (error, allStores) =>{
-        res.render('index.ejs', {
-            store: allStores
-        });
-    });
-});
-
-
-// New
-app.get('/store/new', (req, res) =>{
-    res.render('new.ejs');
-});
-
-// Delete
-app.delete('/store/:id', (req, res) =>{
-    Store.findByIdAndRemove(req.params.id, (err, data) =>{
-        res.redirect('/store');
-    });
-});
-
-
-// Update
-app.put('/store/:id', (req, res) =>{
-    Store.findByIdAndUpdate(req.params.id, req.body, {
-        new: true
-    }, (error, updatedStore) =>{
-        res.redirect(`/store/${req.params.id}`);
-    });
-});
-
-// Create
-app.post('/store', (req, res) =>{
-    Store.create(req.body, (error, createdStore) =>{
-        res.redirect('/store');
-    });
-});
-
-// Edit
-app.get('/store/:id/edit', (req, res) =>{
-    Store.findById(req.params.id, (error, foundStore) =>{
-        res.render('edit.ejs', {
-            store: foundStore
-        });
-    });
-});
-
-// Show
-app.get('/store/:id', (req, res) =>{
-    Store.findById(req.params.id, (err, foundStore) =>{
-        res.render('show.ejs', {
-            store: foundStore,
-        });
-    });
-});
-
+// ======== ROUTES ========
+const itemsController = require('./controllers/items.js');
+app.use('/store', itemsController);
 
 // ========== LISTENER ==========
 const PORT = process.env.PORT;

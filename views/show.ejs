@@ -40,14 +40,14 @@
 		Price: <%= store.price %>
         <br>
         Quantity Remaining: <%= store.qty%>
-        <% let newQty =- store.qty %>
-        <% if(newQty === 0) { %>
+        <!-- BUY -->
+        <form action="/store/<%=store._id%>?_method=PUT" method="POST">
+        <% if(store.qty === 0) { %>
             <p>OUT OF STOCK</p>
-        <% } else { %>    
-            <!-- BUY -->
-            <form action="/store/<%=store._id%>?_method=PUT" method="POST">
-                <input type="hidden" name="qty" value="<% newQty %>" >
-                <input id="buy" type="submit" name="qty" value="Buy">
+            <input type="submit" value="Buy" disabled=true>
+            <% } else { %>    
+                <input type="hidden" name="qty" value="<%= (parseInt(store.qty)-1).toString() %>" >
+                <input id="buy" type="submit" value="Buy">
         <% } %>
     </form>
     <!-- DELETE -->
