@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 
 // ========== MIDDLEWARE ==========
 app.use(express.urlencoded({extended: true}));
-
+app.use(methodOverride('_method'));
 app.use(express.static('public'));
 // ========== DATABASE CONNECTION ==========
 mongoose.connect(process.env.DATABASE_URL, {
@@ -25,6 +25,7 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 // ========== ROUTES ==========
 // Index 
 app.get('/store', (req, res) =>{
+    // let qty =  - parseInt(store.qty)
     Store.find({}, (error, allStores) =>{
         res.render('index.ejs', {
             store: allStores
@@ -38,6 +39,22 @@ app.get('/store/new', (req, res) =>{
     res.render('new.ejs');
 });
 
+// Delete
+app.delete('/store/:id', (req, res) =>{
+    Store.findByIdAndRemove(req.params.id, (err, data) =>{
+        res.redirect('/store');
+    });
+});
+
+
+// Update
+app.put('/store/:id', (req, res) =>{
+    Store.findByIdAndUpdate(req.params.id, req.body, {
+        new: true
+    }, (error, updatedStore) =>{
+        res.redirect(`/store/${req.params.id}`);
+    });
+});
 
 // Create
 app.post('/store', (req, res) =>{
@@ -46,6 +63,14 @@ app.post('/store', (req, res) =>{
     });
 });
 
+// Edit
+app.get('/store/:id/edit', (req, res) =>{
+    Store.findById(req.params.id, (error, foundStore) =>{
+        res.render('edit.ejs', {
+            store: foundStore
+        });
+    });
+});
 
 // Show
 app.get('/store/:id', (req, res) =>{

@@ -31,34 +31,17 @@
 	<body>
 		<nav>
 			<a href="/store">Back to Main Store</a>
-            <a href="/store/<%=store._id%>/edit">Edit Product</a>
 		</nav>
-		<h1><%=store.name %></h1>
-		<img id="pic" src="<%= store.img%>" alt="store.name"><br>
-        Description: <%= store.description%>
+    <form action="/store/<%=store._id%>?_method=PUT" method="POST">
+		Name: <input type="text" name="name" value="<%=store.name%>">
+        <input type="image url" name="img" value="<%=store.img%>">
+        Description: <input type="text" name="description" value="<%= store.description%>">
 		<br />
-		Price: <%= store.price %>
+		Price: <input type="number" name="price" value="<%= store.price %>">
         <br>
-        Quantity Remaining: <%= store.qty%>
-        <% let newQty =- store.qty %>
-        <% if(newQty === 0) { %>
-            <p>OUT OF STOCK</p>
-        <% } else { %>    
-            <!-- BUY -->
-            <form action="/store/<%=store._id%>?_method=PUT" method="POST">
-                <input type="hidden" name="qty" value="<% newQty %>" >
-                <input id="buy" type="submit" name="qty" value="Buy">
-        <% } %>
+        Quantity Remaining: <input type="number" name="qty" value="<%= store.qty%>">
+        <br>
+        <input type="submit" value="Add product">
     </form>
-    <!-- DELETE -->
-    <form action="/store/<%=store._id%>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete Product">
-    </form>
-        
-    <% /* %> 
-    <% let qty = store.qty %>
-    <% let buy = document.getElementById("buy")%>
-    <% %> 
-    <% */ %>
 	</body>
 </html>
